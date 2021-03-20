@@ -26,8 +26,9 @@ class Home extends React.Component {
     this.props.history.push({
       pathname: '/page',
       state: {
-        id: 0,
-      }
+        text: this.state.text,
+        image_url: this.state.image_url,
+      },
     });
   }
   
@@ -36,10 +37,6 @@ class Home extends React.Component {
       <Router>
         <div>
           <h1>Home page</h1>
-          <Switch>
-            {/* <Route exact path='/' component={App} /> */}
-            {/* <Route path="/page" component={Page} /> */}
-          </Switch>
             <Popup
               trigger={<button className="button"> Open Modal </button>}
               modal
