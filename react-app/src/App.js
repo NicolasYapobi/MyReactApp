@@ -3,21 +3,26 @@ import logo from './logo.svg';
 import Popup from 'reactjs-popup';
 import './App.css';
 
-interface IApps {
-  value: string;
-  url: string;
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      text: '',
+      image_url: '',
+    };
+    this.handleText = this.handleText.bind(this);
+    this.handleURL = this.handleURL.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-    console.log(this.props.value);
+  handleText(event) {
+    this.setState({text: event.target.text});
+  }
+  handleURL(event) {
+    this.setState({text: event.target.text});
+  }
+  
+  handleSubmit(event) {
+    console.log(this.state.text);
   }
   
   render() {
@@ -38,11 +43,19 @@ class App extends React.Component {
                   {" "}
                   <form>
                     <label>
-                      <input type="text" onChange={this.handleChange} placeholder="Add your plain text"/>
+                      <input type="text" onChange={this.handleText} placeholder="Add your plain text"/>
+                      <h1> OR </h1>
+                      <input type="text" onChange={this.handleURL} placeholder="Add your image's url"/>
                     </label>
                   </form>
                 </div>
                 <div className="actions">
+                  <button 
+                    className="button"
+                    onClick={() => this.handleSubmit()}
+                  >
+                    Create Page
+                  </button>
                   <button
                     className="button"
                     onClick={() => {
@@ -50,7 +63,7 @@ class App extends React.Component {
                       close();
                     }}
                   >
-                    close modal
+                    Close modal
                   </button>
                 </div>
               </div>
