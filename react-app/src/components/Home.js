@@ -15,16 +15,20 @@ class Home extends React.Component {
 
   handleText(event) {
     this.setState({text: event.target.value});
-    console.log("TEXT: ", this.state.text);
   }
 
   handleURL(event) {
     this.setState({image_url: event.target.value});
-    console.log("URL: ", this.state.image_url);
   }
   
   handleSubmit(event) {
     console.log(this.state.text);
+    this.props.history.push({
+      pathname: '/page',
+      state: {
+        id: 0,
+      }
+    });
   }
   
   render() {
