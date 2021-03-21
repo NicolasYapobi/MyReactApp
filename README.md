@@ -5,6 +5,6 @@ Creation of a dynamic book in which the user can add pages composed with either 
 
 To install the project, you need to run these commands in the root of the repository
 ```console
-cd my-app
+cd react-app
 npm start
 ```
