@@ -1,13 +1,19 @@
 import * as React from 'react';
 import Popup from 'reactjs-popup';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import "../global.js";
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text: '',
       image_url: '',
+      pages: [
+        {
+          id: 0,
+          text: ''
+        }
+      ],
     };
     this.handleText = this.handleText.bind(this);
     this.handleURL = this.handleURL.bind(this);
@@ -21,22 +27,39 @@ class Home extends React.Component {
     this.setState({image_url: event.target.value});
   }
   
-  handleSubmit(event) {
-    console.log(this.state.text);
+  navigate() {
     this.props.history.push({
-      pathname: '/page',
+      pathname: '/page'+global.nb_page,
       state: {
         text: this.state.text,
         image_url: this.state.image_url,
       },
     });
   }
+
+  handleSubmit(event) {
+    global.nb_page += 1;
+    let page = this.state.pages;
+    page.push({id: global.nb_page, text: this.state.text});
+    global.pages = page;
+    this.setState({pages: page});    
+  }
   
+  componentDidMount() {
+    let pages = global.page;
+    console.log(pages);
+    this.setState({pages: this.state.pages});
+    console.log("mount");
+  }
+
   render() {
     return (
       <Router>
         <div>
           <h1>Home page</h1>
+          {this.state.pages.map(page =>
+            <a key={page.id} onClick={() => this.navigate()}>
+                Page {page.id}</a>)}
             <Popup
               trigger={<button className="button"> Open Modal </button>}
               modal
