@@ -1,7 +1,13 @@
 import * as React from 'react';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Toast from 'react-bootstrap/Toast';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Popup from 'reactjs-popup';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import "../global.js";
+import "../App.css";
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -47,62 +53,69 @@ class Home extends React.Component {
   
   componentDidMount() {
     let pages = global.page;
-    console.log(pages);
     this.setState({pages: this.state.pages});
-    console.log("mount");
   }
 
   render() {
     return (
       <Router>
-        <div>
-          <h1>Home page</h1>
-          {this.state.pages.map(page =>
-            <a key={page.id} onClick={() => this.navigate()}>
-                Page {page.id}</a>)}
-            <Popup
-              trigger={<button className="button"> Open Modal </button>}
-              modal
-            >
-              {close => (
-                <div className="modal">
-                  <a className="close" onClick={close}>
-                    &times;
-                  </a>
-                  <div className="content">
-                    {" "}
-                    <form>
-                      <label>
-                        <input type="text" onChange={this.handleText} placeholder="Add your plain text"/>
-                        <h1>OR</h1>
-                        <input type="text" onChange={this.handleURL} placeholder=" Add your image's url"/>
-                      </label>
-                    </form>
+        <Container className="p-3">
+          <Jumbotron>
+            <div>
+              <h1>My React App</h1>
+              <h3>Click the button to create your page</h3>
+            </div>
+              <Popup
+                trigger={<button className="button"> Open </button>}
+                modal
+              >
+                {close => (
+                  <div className="modal">
+                    <a className="close" onClick={close}>
+                      &times;
+                    </a>
+                    <div className="content">
+                      {" "}
+                      <form>
+                        <label>
+                          <input type="text" onChange={this.handleText} placeholder="Add your plain text"/>
+                          <h1>OR</h1>
+                          <input type="text" onChange={this.handleURL} placeholder=" Add your image's url"/>
+                        </label>
+                      </form>
+                    </div>
+                    <div className="actions">
+                      <Button
+                        type="button"
+                        className="button"
+                        onClick={() => {
+                          this.handleSubmit();
+                          close();
+                        }}
+                      >
+                        Create Page
+                      </Button>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          console.log("modal closed ");
+                          close();
+                        }}
+                      >
+                        Close modal
+                      </button>
+                    </div>
                   </div>
-                  <div className="actions">
-                    <button 
-                      className="button"
-                      onClick={() => {
-                        this.handleSubmit();
-                        close();
-                      }}
-                    >
-                      Create Page
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() => {
-                        console.log("modal closed ");
-                        close();
-                      }}
-                    >
-                      Close modal
-                    </button>
-                  </div>
-                </div>
+                )}
+              </Popup>
+              <br></br>
+              {global.nb_page != 0 && this.state.pages.map(page =>
+                <li key={page.id}>
+                  <a onClick={() => this.navigate()}>Page {page.id}</a>
+                </li>
               )}
-            </Popup>
-        </div>
+            </Jumbotron>
+          </Container>
       </Router>
     );
   }
