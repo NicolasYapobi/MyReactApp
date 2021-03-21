@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+.popup-content {
+  background-color: white;
+}
+
 .modal > .header {
   width: 100%;
   border-bottom: 1px solid gray;

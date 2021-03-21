@@ -61,7 +61,7 @@ class Home extends React.Component {
       <Router>
         <Container className="p-3">
           <Jumbotron>
-            <div>
+            <div className="home">
               <h1>My React App</h1>
               <h3>Click the button to create your page</h3>
             </div>
@@ -109,11 +109,13 @@ class Home extends React.Component {
                 )}
               </Popup>
               <br></br>
-              {global.nb_page != 0 && this.state.pages.map(page =>
-                <li key={page.id}>
-                  <a onClick={() => this.navigate()}>Page {page.id}</a>
-                </li>
-              )}
+              <div className="pages">
+                {global.nb_page != 0 && this.state.pages.map(page =>
+                  <li key={page.id}>
+                    <a onClick={() => this.navigate()}>Page {page.id}</a>
+                  </li>
+                )}
+              </div>
             </Jumbotron>
           </Container>
       </Router>
